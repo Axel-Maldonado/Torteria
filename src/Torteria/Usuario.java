@@ -26,29 +26,36 @@
 */
 package Torteria;
 
+import java.util.HashSet;
+
 public class Usuario {
 
-    private String usuario; //unico
+    private static HashSet<String> nombresExistentes = new HashSet<>();
+    private String nombre;
 
-    public Usuario() {
-
+    public Usuario(String nombre) throws Exception {
+        if (nombresExistentes.contains(nombre)) {
+            throw new Exception("El usuario ya existe");
+        }
+        this.nombre = nombre;
+        nombresExistentes.add(nombre);
     }
 
-    public Usuario(String usuario) {
-        this.usuario = usuario;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNombre(String nombre) throws Exception {
+        if (nombresExistentes.contains(nombre)) {
+            throw new Exception("El usuario ya existe");
+        }
+        nombresExistentes.remove(this.nombre);
+        this.nombre = nombre;
+        nombresExistentes.add(nombre);
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "usuario=" + usuario + '}';
+        return "Usuario[nombre=" + nombre + "]";
     }
-
 }
